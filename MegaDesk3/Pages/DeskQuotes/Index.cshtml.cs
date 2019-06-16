@@ -1,29 +1,26 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using MegaDesk3.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using MegaDesk3.Data;
-using MegaDesk3.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MegaDesk3.Pages.DeskQuotes
 {
-    public class IndexModel : PageModel
-    {
-        private readonly MegaDesk3.Data.MegaDeskContext _context;
+	public class IndexModel : PageModel
+	{
+		private readonly MegaDesk3.Data.MegaDeskContext _context;
 
-        public IndexModel(MegaDesk3.Data.MegaDeskContext context)
-        {
-            _context = context;
-        }
+		public IndexModel( MegaDesk3.Data.MegaDeskContext context )
+		{
+			_context = context;
+		}
 
-        public IList<DeskQuote> DeskQuote { get;set; }
+		public IList<DeskQuote> DeskQuote { get; set; }
 
-        public async Task OnGetAsync()
-        {
-            DeskQuote = await _context.DeskQuotes.ToListAsync();
-        }
-    }
+		public async Task OnGetAsync()
+		{
+			DeskQuote = await _context.DeskQuotes.Include( q => q.Desk )
+				.Include( q => q.Desk.SurfaceMaterial ).ToListAsync();
+		}
+	}
 }

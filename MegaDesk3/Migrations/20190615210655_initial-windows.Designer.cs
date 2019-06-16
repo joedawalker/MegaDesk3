@@ -4,14 +4,16 @@ using MegaDesk3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MegaDesk3.Migrations
 {
     [DbContext(typeof(MegaDeskContext))]
-    partial class MegaDeskContextModelSnapshot : ModelSnapshot
+    [Migration("20190615210655_initial-windows")]
+    partial class initialwindows
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,12 +48,11 @@ namespace MegaDesk3.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CustomerName")
-                        .IsRequired();
+                    b.Property<string>("CustomerName");
 
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("DeskId");
+                    b.Property<int?>("DeskId");
 
                     b.Property<decimal>("QuotePrice");
 
@@ -70,9 +71,7 @@ namespace MegaDesk3.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
-
-                    b.Property<decimal>("Price");
+                    b.Property<decimal>("PriceRate");
 
                     b.HasKey("SurfaceMaterialId");
 
@@ -90,8 +89,7 @@ namespace MegaDesk3.Migrations
                 {
                     b.HasOne("MegaDesk3.Models.Desk", "Desk")
                         .WithMany()
-                        .HasForeignKey("DeskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DeskId");
                 });
 #pragma warning restore 612, 618
         }
