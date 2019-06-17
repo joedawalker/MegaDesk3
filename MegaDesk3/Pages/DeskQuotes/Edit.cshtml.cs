@@ -1,9 +1,13 @@
-﻿using MegaDesk3.Models;
+﻿using System;
+using System.Collections.Generic;
+using MegaDesk3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace MegaDesk3.Pages.DeskQuotes
 {
@@ -18,6 +22,10 @@ namespace MegaDesk3.Pages.DeskQuotes
 
 		[BindProperty]
 		public DeskQuote DeskQuote { get; set; }
+		public SelectList SurfaceMaterials { get; set; }
+
+		[BindProperty]
+		public string SelectedMaterial { get; set; }
 
 		public async Task<IActionResult> OnGetAsync( int? id )
 		{
@@ -26,8 +34,17 @@ namespace MegaDesk3.Pages.DeskQuotes
 				return NotFound();
 			}
 
-			DeskQuote = await _context.DeskQuotes.Include( dq => dq.Desk )
+			Task<DeskQuote> getQuoteAsync = _context.DeskQuotes.Include( dq => dq.Desk )
 				.Include( dq => dq.Desk.SurfaceMaterial ).FirstOrDefaultAsync( m => m.DeskQuoteId == id );
+
+			Task<List<string>> getSurfaceMaterialsAsync = _context.SurfaceMaterials.Select( s => s.Name ).ToListAsync();
+
+			Task.WaitAll( getQuoteAsync, getSurfaceMaterialsAsync );
+
+			DeskQuote = getQuoteAsync.Result;
+			SurfaceMaterials = new SelectList( getSurfaceMaterialsAsync.Result );
+			SelectedMaterial =
+				getSurfaceMaterialsAsync.Result.FirstOrDefault( m => m == DeskQuote.Desk.SurfaceMaterial.Name );
 
 			if ( DeskQuote == null )
 			{
@@ -42,6 +59,11 @@ namespace MegaDesk3.Pages.DeskQuotes
 			{
 				return Page();
 			}
+
+			List<SurfaceMaterial> rawSurfaceMaterials = await _context.SurfaceMaterials.ToListAsync();
+			DeskQuote.Desk.SurfaceMaterial = rawSurfaceMaterials.FirstOr( m => m.Name == SelectedMaterial, rawSurfaceMaterials[0] );
+			DeskQuote.QuotePrice = DeskQuote.GetQuote();
+			DeskQuote.Date = DateTime.Now;
 
 			_context.Attach( DeskQuote ).State = EntityState.Modified;
 
