@@ -2,11 +2,15 @@
 /* Global Theme Vars */
 :root {
     /*Colors*/
-    --theme-color-main-1: #A24936;
+    --theme-color-main-1: #0E79B2;
+    /*--theme-color-main-1: #A24936;*/
     --theme-color-main-2: #282B28;
     --theme-color-bg-1: #FDFDFD;
     --theme-color-txt-light: #FDFDFD;
     --theme-color-txt-dark: #30323D;
+    --info: #084887;
+    --success: #56BF00;
+    --warning: #D33115;
     /*typography*/
     --theme-font-family: sans-serif;
     --theme-font-accent: 'Kalam', cursive;
@@ -25,7 +29,7 @@
 *,
 *:before,
 *:after {
-    box-sizing: content-box;
+    box-sizing: border-box;
 }
 
 body {
@@ -72,12 +76,25 @@ body {
     color: var(--theme-color-txt-dark);
 }
 
+footer {
+    height: 60px;
+    background-color: var(--theme-color-main-1);
+    color: var(--theme-color-txt-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: var(--theme-weight-bold);
+    box-shadow: var(--theme-box-shadow);
+}
+
 /*Body (main tag) styles*/
 
 main {
     padding: var(--theme-margin);
     max-width: 900px;
     margin: 0 auto;
+    height: calc(100vh - 120px);
 }
 
 /*Index styles*/
@@ -104,8 +121,83 @@ main {
     background-color: lightgrey;
 }
 
+.quote-table__icons {
+    vertical-align: baseline;
+}
+
+.icon--edit { color: var(--info);}
+.icon--detail {color: var(--success);}
+.icon--delete { color: var(--warning);}
+
 /*Utilities*/
 .font-accent { font-family: var(--theme-font-accent);}
+.clickable {cursor: pointer;}
+.text-danger { 
+    color: red;
+    font-size: 14px;
+    display: block;
+}
+
+/*Controls*/
+
+form {
+    margin: var(--theme-margin) 0;
+}
+
+.btn {
+    padding: .37rem .75rem;
+    background-color: var(--theme-color-main-1);
+    border: none;
+    font-size: 16px;
+    color: var(--theme-color-txt-light);
+    text-decoration: none;
+    font-weight: var(--theme-weight-bold);
+    transition: var(--theme-transition);
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+.input--text {
+    font-size: 16px;
+    padding: .25rem;
+    max-width: 200px;
+    width: 200px;
+}
+
+.field {
+    margin: .5rem 0;
+}
+
+.label {
+    display: block;
+    font-size: 16px;
+    font-weight: var(--theme-weight-bold);
+}
+
+/*Detail View*/
+.detail__list {
+    width: 300px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.detail__list dt {
+    background-color: var(--theme-color-main-1);
+    color: var(--theme-color-txt-light);
+    width: 100px;
+    padding: .5rem;
+}
+.detail__list dd {
+    border-bottom: 2px solid var(--theme-color-main-1);
+    padding: .5rem;
+    display: block;
+    flex-grow: 1;
+    margin: 0;
+    width: 200px;
+}
 
 
 

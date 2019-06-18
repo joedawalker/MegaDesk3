@@ -5,18 +5,23 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1 class="font-accent">Index</h1>
+<h1 class="font-accent">Manage Quotes</h1>
 
 <p>
-	<a asp-page="Create">Create New</a>
+	<a asp-page="Create" class="btn">Create New Quote</a>
 </p>
-<input type="search" />
+<form>
+    <input type="search" class="input--text" />
+    <button type="submit" class="btn" title="Search"><i class="fas fa-search"></i></button>
+</form>
+
 <table class="quote-table">
 	<thead>
 		<tr>
-			<th>
-				@Html.DisplayNameFor( model => model.DeskQuote[0].CustomerName )
-			</th>
+            <th class="clickable">
+                @Html.DisplayNameFor(model => model.DeskQuote[0].CustomerName)
+                <i class="fas fa-sort-down quote-table__icons"></i>
+            </th>
 			<th>
 				@Html.DisplayNameFor( model => model.DeskQuote[0].RushOrderType )
 			</th>
@@ -35,9 +40,10 @@
 			<th>
 				@Html.DisplayNameFor( model => model.DeskQuote[0].QuotePrice )
 			</th>
-			<th>
+			<th class="clickable">
 				@Html.DisplayNameFor( model => model.DeskQuote[0].Date )
-			</th>
+                <i class="fas fa-sort-down quote-table__icons"></i>
+            </th>
 			<th></th>
 		</tr>
 	</thead>
@@ -70,9 +76,9 @@
 				@Html.DisplayFor( modelItem => item.Date )
 			</td>
 			<td>
-				<a asp-page="./Edit" asp-route-id="@item.DeskQuoteId">Edit</a> |
-				<a asp-page="./Details" asp-route-id="@item.DeskQuoteId">Details</a> |
-				<a asp-page="./Delete" asp-route-id="@item.DeskQuoteId">Delete</a>
+				<a asp-page="./Edit" asp-route-id="@item.DeskQuoteId" class="icon--edit" title="Edit Quote"><i class="fas fa-edit"></i></a> |
+				<a asp-page="./Details" asp-route-id="@item.DeskQuoteId" class="icon--detail" title="Quote Details"><i class="fas fa-info-circle"></i></a> |
+				<a asp-page="./Delete" asp-route-id="@item.DeskQuoteId" class="icon--delete" title="Delete Quote"><i class="fas fa-trash-alt"></i></a>
 			</td>
 		</tr>
 		}
