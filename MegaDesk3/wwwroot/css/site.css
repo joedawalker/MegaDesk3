@@ -1,59 +1,114 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
+﻿
+/* Global Theme Vars */
+:root {
+    /*Colors*/
+    --theme-color-main-1: #A24936;
+    --theme-color-main-2: #282B28;
+    --theme-color-bg-1: #FDFDFD;
+    --theme-color-txt-light: #FDFDFD;
+    --theme-color-txt-dark: #30323D;
+    /*typography*/
+    --theme-font-family: sans-serif;
+    --theme-font-accent: 'Kalam', cursive;
+    --theme-weight-main: 500;
+    --theme-weight-bold: 700;
+    /*Spacing*/
+    --theme-margin: 1rem;
+    --theme-padding: 1rem;
+    /*Utilities*/
+    --theme-box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    --theme-border-radius: 5px;
+    --theme-transition: all 200ms ease;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    font-size: 14px;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
-.border-top {
-    border-top: 1px solid #e5e5e5;
-}
-
-.border-bottom {
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-    font-size: 1rem;
-    line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-    position: relative;
-    min-height: 100%;
+/*Global Styles*/
+*,
+*:before,
+*:after {
+    box-sizing: content-box;
 }
 
 body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
+    font-family: var(--theme-font-family);
+    margin: 0;
+    padding: 0;
 }
 
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    /* Set the fixed height of the footer here */
+
+
+/*Header Styles*/
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 60px;
-    line-height: 60px; /* Vertically center the text there */
+    padding: 0 1rem;
+    background-color: var(--theme-color-main-1);
+    box-shadow: var(--theme-box-shadow);
 }
+.header__logo {
+    color: var(--theme-color-txt-light);
+    font-size: 30px;
+    font-family: var(--theme-font-accent);
+}
+.nav {}
+.nav__list {
+    list-style: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.nav__item {
+    margin-right: var(--theme-margin);
+}
+.nav__link {
+    color: var(--theme-color-txt-light);
+    font-weight: var(--theme-weight-bold);
+    text-decoration: none;
+    font-size: 18px;
+    transition: var(--theme-transition)
+}
+.nav__link:hover {
+    color: var(--theme-color-txt-dark);
+}
+
+/*Body (main tag) styles*/
+
+main {
+    padding: var(--theme-margin);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/*Index styles*/
+.quote-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.quote-table th {
+    color: var(--theme-color-txt-light);
+    font-weight: var(--theme-weight-main);
+}
+
+.quote-table th, .quote-table td {
+    padding: .5rem;
+    text-align: left;
+}
+
+.quote-table thead tr{
+    background-color: var(--theme-color-main-1);
+}
+
+.quote-table tbody tr {
+    background-color: lightgrey;
+}
+
+/*Utilities*/
+.font-accent { font-family: var(--theme-font-accent);}
+
+
+
+
+
+
