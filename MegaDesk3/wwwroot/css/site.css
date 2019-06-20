@@ -95,6 +95,7 @@ main {
     max-width: 900px;
     margin: 0 auto;
     height: calc(100vh - 120px);
+    overflow-y: auto;
 }
 
 /*Index styles*/
