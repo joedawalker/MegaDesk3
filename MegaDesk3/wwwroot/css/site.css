@@ -200,6 +200,10 @@ form {
     width: 200px;
 }
 
+th a {
+    color: var(--theme-color-txt-light) !important;
+}
+
 
 
 
