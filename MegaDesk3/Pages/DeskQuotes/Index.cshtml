@@ -11,7 +11,7 @@
 	<a asp-page="Create" class="btn">Create New Quote</a>
 </p>
 <form>
-    <input type="search" class="input--text" />
+    <input type="search" asp-for="CustomerName" class="input--text" />
     <button type="submit" class="btn" title="Search"><i class="fas fa-search"></i></button>
 </form>
 
@@ -19,8 +19,10 @@
 	<thead>
 		<tr>
             <th class="clickable">
-                @Html.DisplayNameFor(model => model.DeskQuote[0].CustomerName)
-                <i class="fas fa-sort-down quote-table__icons"></i>
+                <a asp-page="index" asp-route-sortByName="true">
+                    @Html.DisplayNameFor(model => model.DeskQuote[0].CustomerName)
+                    <i class="fas fa-sort-down quote-table__icons"></i>
+                </a>
             </th>
 			<th>
 				@Html.DisplayNameFor( model => model.DeskQuote[0].RushOrderType )
@@ -41,8 +43,10 @@
 				@Html.DisplayNameFor( model => model.DeskQuote[0].QuotePrice )
 			</th>
 			<th class="clickable">
-				@Html.DisplayNameFor( model => model.DeskQuote[0].Date )
-                <i class="fas fa-sort-down quote-table__icons"></i>
+                <a asp-page="index" asp-route-sortByDate="true">
+                    @Html.DisplayNameFor(model => model.DeskQuote[0].Date)
+                    <i class="fas fa-sort-down quote-table__icons"></i>
+                </a>
             </th>
 			<th></th>
 		</tr>
