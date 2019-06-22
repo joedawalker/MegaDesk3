@@ -64,7 +64,7 @@ namespace MegaDesk3.Pages.DeskQuotes
 
             List<SurfaceMaterial> rawSurfaceMaterials = await _context.SurfaceMaterials.ToListAsync();
             DeskQuote.Desk.SurfaceMaterial = rawSurfaceMaterials.FirstOr( m => m.Name == SelectedMaterial, rawSurfaceMaterials[0] );
-            DeskQuote.QuotePrice = DeskQuote.GetQuote();
+            DeskQuote.QuotePrice = DeskQuote.GetQuote( await _context.RushOrderTypes.ToListAsync() );
             DeskQuote.Date = DateTime.Now;
 
             _context.Attach( DeskQuote ).State = EntityState.Modified;

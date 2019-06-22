@@ -4,14 +4,16 @@ using MegaDesk3.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MegaDesk3.Migrations
 {
     [DbContext(typeof(MegaDeskContext))]
-    partial class MegaDeskContextModelSnapshot : ModelSnapshot
+    [Migration("20190622151448_RushOrder")]
+    partial class RushOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

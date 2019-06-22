@@ -11,5 +11,6 @@ namespace MegaDesk3.Data
 		public DbSet<DeskQuote> DeskQuotes { get; set; }
 		public DbSet<Desk> Desks { get; set; }
 		public DbSet<SurfaceMaterial> SurfaceMaterials { get; set; }
+        public DbSet<RushOrder> RushOrderTypes { get; set; }
 	}
 }

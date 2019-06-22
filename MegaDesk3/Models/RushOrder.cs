@@ -16,8 +16,5 @@ namespace MegaDesk3.Models
 
         [DataType(DataType.Currency)]
         public decimal TierThreePrice { get; set; }
-
-        [DataType(DataType.Currency)]
-        public decimal StandardPrice { get; set; }
     }
 }

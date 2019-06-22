@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace MegaDesk3.Models
 {
@@ -28,12 +30,14 @@ namespace MegaDesk3.Models
         private const decimal BASE_DESK_PRICE = 200.00M;
         private const decimal SURFACE_AREA_RATE = 1;
         private const decimal DRAWER_RATE = 50.00M;
+        private List<RushOrder> _rushOrderData;
 
         /// <summary>
         /// Calculates the Quote of a Desk order based on the Desk customization and Rush Order selection.
         /// </summary>
-        public decimal GetQuote()
+        public decimal GetQuote( List<RushOrder> rushOrderData )
         {
+            _rushOrderData = rushOrderData;
             decimal surfaceArea = Desk.Depth * Desk.Width;
             return GetDeskPrice( surfaceArea ) + GetRushOrderCost( surfaceArea );
         }
@@ -50,25 +54,16 @@ namespace MegaDesk3.Models
 
         private decimal GetRushOrderCost( decimal surfaceArea )
         {
-            // This is obviously bad practice, hard coding in these
-            // values, but I didn't know what the expectation was. -Joseph
-            decimal[,] rushOrderPrices =
-            {
-                { 60, 40, 30 },
-                { 70, 50, 35 },
-                { 80, 60, 40 }
-            };
-
             if ( surfaceArea < 1000 )
             {
                 switch ( RushOrderType )
                 {
                     case RushOrderType.ThreeDay:
-                        return rushOrderPrices[0, 0];
+                        return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "3-day" ) ).TierOnePrice;
                     case RushOrderType.FiveDay:
-                        return rushOrderPrices[0, 1];
+                        return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "5-day" ) ).TierOnePrice;
                     case RushOrderType.SevenDay:
-                        return rushOrderPrices[0, 2];
+                        return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "7-day" ) ).TierOnePrice;
                     default:
                         return 0;
                 }
@@ -79,11 +74,11 @@ namespace MegaDesk3.Models
                 switch ( RushOrderType )
                 {
                     case RushOrderType.ThreeDay:
-                        return rushOrderPrices[1, 0];
+                        return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "3-day" ) ).TierTwoPrice;
                     case RushOrderType.FiveDay:
-                        return rushOrderPrices[1, 1];
+                        return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "5-day" ) ).TierTwoPrice;
                     case RushOrderType.SevenDay:
-                        return rushOrderPrices[1, 2];
+                        return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "7-day" ) ).TierTwoPrice;
                     default:
                         return 0;
                 }
@@ -92,11 +87,11 @@ namespace MegaDesk3.Models
             switch ( RushOrderType )
             {
                 case RushOrderType.ThreeDay:
-                    return rushOrderPrices[2, 0];
+                    return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "3-day" ) ).TierThreePrice;
                 case RushOrderType.FiveDay:
-                    return rushOrderPrices[2, 1];
+                    return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "5-day" ) ).TierThreePrice;
                 case RushOrderType.SevenDay:
-                    return rushOrderPrices[2, 2];
+                    return _rushOrderData.FirstOrDefault( r => r.RushOrderName.Equals( "7-day" ) ).TierThreePrice;
                 default:
                     return 0;
             }
